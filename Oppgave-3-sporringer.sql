@@ -41,3 +41,23 @@ WHERE orders.quantity * products.price > 2000
 ORDER BY result DESC;
 
 # 7:
+SELECT status, COUNT(*) as COUNT
+FROM orders
+GROUP BY status;
+
+# 8:
+SELECT AVG(price) AS average_price,
+       category
+FROM products
+GROUP BY category
+ORDER BY average_price DESC;
+
+# 9:
+SELECT COUNT(order_id) AS sum_orders,
+       customers.customer_id
+FROM customers
+LEFT JOIN orders ON customers.customer_id = orders.customer_id
+GROUP BY customer_id
+ORDER BY sum_orders DESC;
+
+# 10:
