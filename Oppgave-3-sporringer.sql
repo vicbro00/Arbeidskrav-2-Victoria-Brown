@@ -118,3 +118,46 @@ LIMIT 1;
 # Så koblet jeg de tabellene sammen for å finne riktig kunde og hvilke produkter de har kjøpt.
 # Så tok jeg group by customer_id for å vise kundene, så satte jeg en limit på 1 for å vise bare 1 kunde.
 # Med sortering fra høyest til lavest, slik vil kunden med høyest andel vises først.
+
+# Oppgave 4:
+# 1:
+SELECT first_name, last_name, email, city, registered_date
+FROM customers;
+
+INSERT INTO customers
+    (first_name, last_name, email, city, registered_date)
+VALUES ('Henrik', 'Solberg', 'henrik.solberg@example.com',
+        'Lillehammer', '2026-10-29');
+
+# 2:
+SELECT product_name, category, price, stock
+FROM products;
+
+INSERT INTO products
+    (product_name, category, price, stock)
+VALUES ('USB-C cable', 'Accessories', 199, 50),
+       ('Docking station', 'Accessories', 1899, 12),
+       ('External SSD 2TB', 'Storage', 1999, 8);
+
+# 3:
+SELECT customer_id
+FROM customers
+WHERE first_name = 'Henrik'
+    AND last_name = 'Solberg';
+
+SELECT product_id, product_name
+FROM products
+WHERE product_name = 'Docking station'
+    OR product_name = 'USB-C cable'
+    OR product_name = 'External SSD 2TB';
+
+INSERT INTO orders
+    (customer_id, product_id, quantity, order_date, status)
+VALUES (9, 11, 2, '2026-10-29', 'Processing'),
+       (9, 12, 1, '2026-10-29', 'Processing'),
+       (9, 13, 1, '2026-10-29', 'Processing');
+
+SELECT customers.first_name, products.product_name, orders.quantity
+FROM orders
+JOIN customers ON orders.customer_id = customers.customer_id
+JOIN products ON orders.product_id = products.product_id;
