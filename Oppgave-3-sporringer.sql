@@ -161,3 +161,112 @@ SELECT customers.first_name, products.product_name, orders.quantity
 FROM orders
 JOIN customers ON orders.customer_id = customers.customer_id
 JOIN products ON orders.product_id = products.product_id;
+
+# 4:
+SELECT product_name, category, price
+FROM products
+WHERE category = 'Accessories';
+
+UPDATE products
+SET price = price * 1.08
+WHERE category = 'Accessories';
+
+SELECT product_name, category, price
+FROM products
+WHERE category = 'Accessories';
+
+# 5:
+SELECT product_name, product_id, stock
+FROM products
+WHERE stock < 15;
+
+UPDATE products
+SET stock = stock + 20
+WHERE stock < 15;
+
+SELECT product_name, product_id, stock
+FROM products;
+
+# 6:
+SELECT product_name, price, stock
+FROM products
+WHERE product_name = 'Gaming headset';
+
+UPDATE products
+SET price = price * 1.15, stock = stock + 20
+WHERE product_name = 'Gaming headset';
+
+SELECT product_name, price, stock
+FROM products
+WHERE product_name = 'Gaming headset';
+
+# 7:
+SELECT product_id, status, order_date, order_id
+FROM orders
+WHERE status = 'Shipped'
+    AND order_date < '2025-08-10';
+
+UPDATE orders
+SET status = 'Delivered'
+WHERE status = 'Shipped'
+  AND order_date < '2025-08-10';
+
+SELECT product_id, status, order_date, order_id
+FROM orders
+WHERE status = 'Delivered'
+  AND order_date < '2025-08-10';
+
+# 8:
+SELECT first_name, product_id, order_id, customers.customer_id
+FROM customers
+JOIN orders ON customers.customer_id = orders.customer_id;
+
+# Først lage en ny testkunde
+INSERT INTO customers (first_name, last_name, email, city, registered_date)
+VALUES ('Victoria', 'Brown', 'vic@example.com', 'Ålesund', '2026-11-03');
+
+# Kontrollere den nye testkunden finnes
+SELECT customer_id, first_name, last_name, email
+FROM customers;
+
+# Lage nytt produkt
+INSERT INTO products (product_name, category, price, stock)
+VALUES ('Gaming pc', 'Computers', '20999', 2);
+
+# Kontrollere testproduktet finnes
+SELECT product_id, product_name, category, price, stock
+FROM products;
+
+# Finner customer_id og product_id fra forrige select, forså å lage en ny order med de id-ene
+INSERT INTO orders (customer_id, product_id, quantity, order_date, status)
+VALUES (10, 14, 1, '2026-11-03', 'Processing');
+
+# Kontrollere testbestillingen finnes
+SELECT order_id, customer_id, product_id, quantity, order_date, status
+FROM orders;
+
+# Først fjerne orders, siden de har fremmednøkkel customer_id og product_id
+DELETE FROM orders
+WHERE order_id = 22;
+
+# Kontrollere testbestillingen ble fjernet
+SELECT order_id, customer_id, product_id, quantity, order_date, status
+FROM orders;
+
+# Så slette testproduktet
+DELETE FROM products
+WHERE product_id = 14;
+
+# Kontrollere testproduktet ble fjernet
+SELECT product_id, product_name, category, price, stock
+FROM products;
+
+# Så slette testkunden
+DELETE FROM customers
+WHERE customer_id = 10;
+
+# Kontrollere testkunden ble fjernet
+SELECT customer_id, first_name, last_name, email
+FROM customers;
+
+# 9:
