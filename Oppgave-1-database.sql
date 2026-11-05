@@ -1,4 +1,4 @@
-# Oppgave 1
+-- Oppgave 1
 CREATE DATABASE IF NOT EXISTS
        online_store;
 
@@ -37,7 +37,7 @@ CREATE TABLE orders (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
-# Oppgave 2
+-- Oppgave 2
 INSERT INTO customers
     (customer_id, first_name, last_name,
      email, city, registered_date)

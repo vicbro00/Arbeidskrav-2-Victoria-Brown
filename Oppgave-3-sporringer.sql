@@ -1,4 +1,4 @@
-# 1:
+-- 1:
 SELECT product_name, category,
        price, stock
 FROM products
@@ -6,32 +6,32 @@ WHERE price > 750
 AND stock >= 10
 ORDER BY price DESC;
 
-# 2:
+-- 2:
 SELECT first_name, last_name, city
 FROM customers
 WHERE city = 'Oslo' OR city = 'Bergen' OR city = 'Trondheim'
 ORDER BY city, last_name;
 
-# 3:
+-- 3:
 SELECT order_id, order_date, quantity,
        status
 FROM orders
 WHERE order_date LIKE '%07%';
 
-# 4:
+-- 4:
 SELECT orders.order_date, orders.status, orders.quantity, customers.first_name, customers.last_name,
        products.product_name, products.price
 FROM orders
 JOIN customers ON orders.customer_id = customers.customer_id
 JOIN products ON orders.product_id = products.product_id;
 
-# 5:
+-- 5:
 SELECT orders.quantity * products.price AS result
 FROM orders
 JOIN products ON orders.product_id = products.product_id
 ORDER BY result DESC;
 
-# 6:
+-- 6:
 SELECT customers.customer_id, products.product_id, orders.quantity, products.price,
        orders.quantity * products.price AS result
 FROM orders
@@ -40,19 +40,19 @@ JOIN customers ON orders.customer_id = customers.customer_id
 WHERE orders.quantity * products.price > 2000
 ORDER BY result DESC;
 
-# 7:
+-- 7:
 SELECT status, COUNT(*) as COUNT
 FROM orders
 GROUP BY status;
 
-# 8:
+-- 8:
 SELECT AVG(price) AS average_price,
        category
 FROM products
 GROUP BY category
 ORDER BY average_price DESC;
 
-# 9:
+-- 9:
 SELECT COUNT(order_id) AS sum_orders,
        customers.customer_id
 FROM customers
@@ -60,7 +60,7 @@ LEFT JOIN orders ON customers.customer_id = orders.customer_id
 GROUP BY customer_id
 ORDER BY sum_orders DESC;
 
-# 10:
+-- 10:
 SELECT COALESCE(SUM(quantity), 0) AS product_count,
        products.product_name, products.product_id
 FROM products
@@ -68,7 +68,7 @@ LEFT JOIN orders ON orders.product_id = products.product_id
 GROUP BY products.product_id
 ORDER BY product_count DESC;
 
-# 11:
+-- 11:
 SELECT COALESCE(SUM(orders.quantity), 0) AS product_count, products.product_name,
        COALESCE(SUM(orders.quantity * products.price), 0) AS result
 FROM products
@@ -76,7 +76,7 @@ LEFT JOIN orders ON orders.product_id = products.product_id
 GROUP BY products.product_id
 ORDER BY result DESC;
 
-# 12:
+-- 12:
 SELECT customers.first_name,
        COUNT(orders.customer_id) AS result
 FROM customers
@@ -85,7 +85,7 @@ GROUP BY customers.first_name
 HAVING COUNT(orders.customer_id) > 1
 ORDER BY result DESC;
 
-# 13:
+-- 13:
 SELECT customers.first_name,
        COUNT(orders.customer_id) AS result
 FROM customers
@@ -94,7 +94,7 @@ GROUP BY customers.customer_id
 HAVING COUNT(orders.customer_id) = 0
 ORDER BY result DESC;
 
-# 14:
+-- 14:
 SELECT products.product_name,
        COUNT(orders.product_id) AS result
 FROM products
@@ -103,7 +103,7 @@ GROUP BY products.product_id
 HAVING COUNT(orders.product_id) = 0
 ORDER BY result DESC;
 
-# 15:
+-- 15:
 SELECT SUM(orders.quantity * products.price) AS result, customers.customer_id
 FROM customers
 JOIN orders ON orders.customer_id = customers.customer_id
@@ -112,15 +112,15 @@ GROUP BY customers.customer_id
 ORDER BY result DESC
 LIMIT 1;
 
-# Jeg fant ut at jeg må bruke SUM for å gange antallet product med prisen av hvert produkt.
-# Slik får jeg summen for hvor mye produktene vil koste.
-# Deretter så skjønte jeg at jeg må finne ut samlet verdi av produktene som en kunde har bestilt.
-# Så koblet jeg de tabellene sammen for å finne riktig kunde og hvilke produkter de har kjøpt.
-# Så tok jeg group by customer_id for å vise kundene, så satte jeg en limit på 1 for å vise bare 1 kunde.
-# Med sortering fra høyest til lavest, slik vil kunden med høyest andel vises først.
+-- Jeg fant ut at jeg må bruke SUM for å gange antallet product med prisen av hvert produkt.
+-- Slik får jeg summen for hvor mye produktene vil koste.
+-- Deretter så skjønte jeg at jeg må finne ut samlet verdi av produktene som en kunde har bestilt.
+-- Så koblet jeg de tabellene sammen for å finne riktig kunde og hvilke produkter de har kjøpt.
+-- Så tok jeg group by customer_id for å vise kundene, så satte jeg en limit på 1 for å vise bare 1 kunde.
+-- Med sortering fra høyest til lavest, slik vil kunden med høyest andel vises først.
 
-# Oppgave 4:
-# 1:
+-- Oppgave 4:
+-- 1:
 SELECT first_name, last_name, email, city, registered_date
 FROM customers;
 
@@ -129,7 +129,7 @@ INSERT INTO customers
 VALUES ('Henrik', 'Solberg', 'henrik.solberg@example.com',
         'Lillehammer', '2026-10-29');
 
-# 2:
+-- 2:
 SELECT product_name, category, price, stock
 FROM products;
 
@@ -139,7 +139,7 @@ VALUES ('USB-C cable', 'Accessories', 199, 50),
        ('Docking station', 'Accessories', 1899, 12),
        ('External SSD 2TB', 'Storage', 1999, 8);
 
-# 3:
+-- 3:
 SELECT customer_id
 FROM customers
 WHERE first_name = 'Henrik'
@@ -162,7 +162,7 @@ FROM orders
 JOIN customers ON orders.customer_id = customers.customer_id
 JOIN products ON orders.product_id = products.product_id;
 
-# 4:
+-- 4:
 SELECT product_name, category, price
 FROM products
 WHERE category = 'Accessories';
@@ -175,7 +175,7 @@ SELECT product_name, category, price
 FROM products
 WHERE category = 'Accessories';
 
-# 5:
+-- 5:
 SELECT product_name, product_id, stock
 FROM products
 WHERE stock < 15;
@@ -187,7 +187,7 @@ WHERE stock < 15;
 SELECT product_name, product_id, stock
 FROM products;
 
-# 6:
+-- 6:
 SELECT product_name, price, stock
 FROM products
 WHERE product_name = 'Gaming headset';
@@ -200,7 +200,7 @@ SELECT product_name, price, stock
 FROM products
 WHERE product_name = 'Gaming headset';
 
-# 7:
+-- 7:
 SELECT product_id, status, order_date, order_id
 FROM orders
 WHERE status = 'Shipped'
@@ -216,57 +216,87 @@ FROM orders
 WHERE status = 'Delivered'
   AND order_date < '2025-08-10';
 
-# 8:
+-- 8:
 SELECT first_name, product_id, order_id, customers.customer_id
 FROM customers
 JOIN orders ON customers.customer_id = orders.customer_id;
 
-# Først lage en ny testkunde
+-- Først lage en ny testkunde
 INSERT INTO customers (first_name, last_name, email, city, registered_date)
 VALUES ('Victoria', 'Brown', 'vic@example.com', 'Ålesund', '2026-11-03');
 
-# Kontrollere den nye testkunden finnes
+-- Kontrollere den nye testkunden finnes
 SELECT customer_id, first_name, last_name, email
 FROM customers;
 
-# Lage nytt produkt
+-- Lage nytt produkt
 INSERT INTO products (product_name, category, price, stock)
 VALUES ('Gaming pc', 'Computers', '20999', 2);
 
-# Kontrollere testproduktet finnes
+-- Kontrollere testproduktet finnes
 SELECT product_id, product_name, category, price, stock
 FROM products;
 
-# Finner customer_id og product_id fra forrige select, forså å lage en ny order med de id-ene
+-- Finner customer_id og product_id fra forrige select, forså å lage en ny order med de id-ene
 INSERT INTO orders (customer_id, product_id, quantity, order_date, status)
 VALUES (10, 14, 1, '2026-11-03', 'Processing');
 
-# Kontrollere testbestillingen finnes
+-- Kontrollere testbestillingen finnes
 SELECT order_id, customer_id, product_id, quantity, order_date, status
 FROM orders;
 
-# Først fjerne orders, siden de har fremmednøkkel customer_id og product_id
+-- Først fjerne orders, siden de har fremmednøkkel customer_id og product_id
 DELETE FROM orders
 WHERE order_id = 22;
 
-# Kontrollere testbestillingen ble fjernet
+-- Kontrollere testbestillingen ble fjernet
 SELECT order_id, customer_id, product_id, quantity, order_date, status
 FROM orders;
 
-# Så slette testproduktet
+-- Så slette testproduktet
 DELETE FROM products
 WHERE product_id = 14;
 
-# Kontrollere testproduktet ble fjernet
+-- Kontrollere testproduktet ble fjernet
 SELECT product_id, product_name, category, price, stock
 FROM products;
 
-# Så slette testkunden
+-- Så slette testkunden
 DELETE FROM customers
 WHERE customer_id = 10;
 
-# Kontrollere testkunden ble fjernet
+-- Kontrollere testkunden ble fjernet
 SELECT customer_id, first_name, last_name, email
 FROM customers;
 
-# 9:
+-- 9:
+START TRANSACTION;
+
+INSERT INTO orders (customer_id, product_id, quantity, order_date, status)
+VALUES (9, 10, 1, '2026-11-05', 'Processing');
+
+SELECT product_id, product_name, stock
+FROM products
+WHERE product_id = 10;
+
+UPDATE products
+SET stock = stock - 1
+WHERE product_id = 10;
+
+SELECT order_id, customer_id, product_id
+FROM orders
+WHERE customer_id = 9
+    AND product_id = 10;
+
+SELECT product_name, product_id, stock
+FROM products
+WHERE product_id = 10;
+
+COMMIT;
+
+-- ROLLBACK vil angre alle endringene som har blitt gjort, i tilfelle noe er feil.
+-- Slik kan vi gå tilbake til før endringene ble gjort, og prøve på nytt med de riktige verdiene.
+-- Dersom jeg her skal kjøre ROLLBACK og ikke COMMIT, så ville ikke endringene ha blitt gjort.
+-- Transaksjoner er nyttige fordi når man har flere endringer man vil gjøre, kan man samle alle i en transaksjon.
+-- Dette vil gjøre prosessen tryggere, slik at om noe går galt, så vil ikke endringene bli gjort før man kjører COMMIT.
+-- Og dersom noe skulle gå galt kan man angre før COMMIT ved å bruke ROLLBACK.
